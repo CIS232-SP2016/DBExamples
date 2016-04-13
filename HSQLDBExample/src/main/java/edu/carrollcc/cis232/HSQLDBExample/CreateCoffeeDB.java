@@ -90,7 +90,10 @@ public class CreateCoffeeDB {
 					+ "Price DOUBLE " + ")");
 
 			// Insert row #1.
-			stmt.execute("INSERT INTO Coffee VALUES ( " + "'Bolivian Dark', " + "'14-001', " + "8.95 )");
+			stmt.execute("INSERT INTO Coffee VALUES ( " 
+					+ "'Bolivian Dark', " 
+					+ "'14-001', " 
+					+ "8.95 )");
 
 			// Insert row #1.
 			stmt.execute("INSERT INTO Coffee VALUES ( " + "'Bolivian Medium', " + "'14-002', " + "8.95 )");

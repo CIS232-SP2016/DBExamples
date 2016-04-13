@@ -28,7 +28,7 @@ public class ShowCoffeeDescriptions
          Statement stmt = conn.createStatement();
          
          // Create a string with a SELECT statement.
-         String sqlStatement = "SELECT Description FROM Coffee";
+         String sqlStatement = "SELECT Description, Price FROM Coffee";
          
          // Send the statement to the DBMS.
          ResultSet result = stmt.executeQuery(sqlStatement);
@@ -41,7 +41,7 @@ public class ShowCoffeeDescriptions
          // The result set will have three columns.
          while (result.next())
          {
-            System.out.println(result.getString("Description"));
+            System.out.printf("%s $%.2f%n", result.getString("Description"), result.getDouble("Price"));
          }
          
          // Close the connection.

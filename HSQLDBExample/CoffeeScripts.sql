@@ -37,7 +37,7 @@ FROM Coffee
 WHERE Price > 10.00
 ORDER BY Price DESC;
 
--- Mathematical functions
+-- Mathematical Aggregate functions
 SELECT 
 	AVG(Price) AS AveragePrice, -- Average Price
 	SUM(Price) AS PriceTotal, -- Total price of all

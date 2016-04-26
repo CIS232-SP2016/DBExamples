@@ -27,6 +27,10 @@ public class Coffee {
 		return price;
 	}
 	
+	public void setPrice(double price){
+		this.price.set(price);
+	}
+	
 	public void update(){
 		
 	}

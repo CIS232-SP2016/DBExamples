@@ -7,18 +7,27 @@ import java.sql.Statement;
 
 import edu.carrollcc.cis232.HSQLDBExample.model.Coffee;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.converter.DoubleStringConverter;
 
 public class CoffeeTableViewApplication extends Application {
 
@@ -40,6 +49,7 @@ public class CoffeeTableViewApplication extends Application {
 		final Label label = new Label("Coffees");
 		label.setFont(new Font("Arial", 20));
 
+		table.setEditable(true);
 		loadData();
 		setupTableLayout();
 
@@ -58,13 +68,24 @@ public class CoffeeTableViewApplication extends Application {
 
 	private void setupTableLayout() {
 		TableColumn prodNumCol = new TableColumn("Product Number");
+		prodNumCol.setCellFactory(TextFieldTableCell.forTableColumn());
 		prodNumCol.setCellValueFactory(new PropertyValueFactory<Coffee, String>("prodNum"));
 
 		TableColumn descriptionCol = new TableColumn("Description");
+		descriptionCol.setCellFactory(TextFieldTableCell.forTableColumn());
 		descriptionCol.setCellValueFactory(new PropertyValueFactory<Coffee, String>("description"));
 
 		TableColumn priceCol = new TableColumn("Price");
+		priceCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
 		priceCol.setCellValueFactory(new PropertyValueFactory<Coffee, Double>("price"));
+		priceCol.setOnEditCommit(new EventHandler<CellEditEvent<Coffee, Double>>() {
+            @Override
+            public void handle(CellEditEvent<Coffee, Double> t) {
+                ((Coffee) t.getTableView().getItems().get(
+                    t.getTablePosition().getRow())
+                    ).setPrice(t.getNewValue());
+            }
+        });
 
 		table.getColumns().addAll(prodNumCol, descriptionCol, priceCol);
 		table.setPrefWidth(410);

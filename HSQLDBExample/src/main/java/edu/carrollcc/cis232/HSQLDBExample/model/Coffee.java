@@ -27,4 +27,12 @@ public class Coffee {
 		return price;
 	}
 	
+	public void update(){
+		
+	}
+	
+	public void insert(){
+		
+	}
+	
 }
